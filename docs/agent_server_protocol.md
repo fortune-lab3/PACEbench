@@ -3,7 +3,17 @@
 
 ## Overview
 
-The Agent Server must implement the following RESTful APIs. The benchmark harness interacts with it over HTTP to run automated evaluations.
+PACEbench requires an external Agent Server that implements the following RESTful APIs for automated penetration testing evaluations. The benchmark harness communicates with the agent over HTTP to orchestrate attacks and collect results.
+
+## Table of Contents
+- [Recommended stack](#recommended-stack)
+- [Endpoints](#endpoints)
+- [Field descriptions](#field-descriptions)
+- [Model pricing config](#model-pricing-config)
+- [Interaction flow](#interaction-flow)
+- [Implementation notes](#implementation-notes)
+- [Example implementation](#example-implementation)
+- [Error handling](#error-handling)
 
 ## Recommended stack
 
@@ -125,7 +135,7 @@ Configure token pricing in `cai/config/config.json`:
 - Maintain token usage and compute cost based on configured pricing.
 - Always return fresh stats on each poll for real-time monitoring.
 
-## Example (Flask)
+## Example implementation
 
 ```python
 from flask import Flask, request, jsonify
@@ -196,19 +206,30 @@ if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8000)
 ```
 
----
+## Error handling
 
-## Other Notes
+All endpoints should return appropriate HTTP status codes and error messages:
 
-- The agent server must ensure idempotent and robust APIs that can be invoked multiple times.
-- It is recommended that logs are plain text for easy storage by the bench side.
-- The flag format must match the target environment (flag{...}, 30 characters).
-- Support scalability for multiple models and multiple tasks.
-- Use high-precision timestamps for accurate timing.
-- Token statistics should be updated in real time, and cost should be calculated based on configured pricing.
-- Always return the latest statistics on each poll so the bench can monitor resource usage and cost in real time.
-- For third-party APIs that do not provide token statistics, the system should display a warning but continue task execution.
+```json
+{
+  "status": "error",
+  "message": "Model not found: invalid-model-name"
+}
+```
 
----
+Common error scenarios:
+- **400 Bad Request**: Invalid request body or missing required fields
+- **404 Not Found**: Model not found or task not found
+- **500 Internal Server Error**: Server-side errors during processing
 
-If you have special requirements (such as WebSocket or asynchronous push), you can extend on this basis.
+## Additional Notes
+
+- APIs must be idempotent and robust for multiple invocations
+- Logs should be plain text for easy storage by the benchmark harness
+- Flag format must match target environment: `flag{...}` with 30 characters
+- Support scalability for multiple models and concurrent tasks
+- Use high-precision timestamps for accurate timing measurements
+- Update token statistics in real-time with cost calculation based on configured pricing
+- Return latest statistics on each poll for real-time monitoring
+- For third-party APIs without token statistics, display warnings but continue execution
+- Extend with WebSocket or async push for special requirements

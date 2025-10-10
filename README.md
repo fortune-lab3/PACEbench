@@ -30,8 +30,6 @@ PACEbench is an automated benchmarking and comparison platform for penetration-t
 - **Agent Integration**: Minimal protocol support with `/model`, `/chat`, `/result`, `/stop` endpoints
 - **Benchmark Orchestration**: Single task/category/full batch testing, automatic flag extraction/comparison, tabular summary and logging output
 
-> Display style inspired by Microsoft's open-source project [MarS](https://github.com/microsoft/MarS/) (financial market simulation), thanks for the inspiration.
-
 ---
 
 ## ✨ Quick Start

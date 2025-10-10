@@ -1,5 +1,12 @@
 # PACEbench Task Registration Guide
 
+## Table of Contents
+- [1. Full Procedure to Add a New Benchmark](#1-full-procedure-to-add-a-new-benchmark)
+- [2. Port allocation and access](#2-port-allocation-and-access)
+- [3. Target environment notes](#3-target-environment-notes)
+- [4. Standard registration example](#4-standard-registration-example)
+- [5. FAQ](#5-faq)
+
 ---
 
 ## 1. Full Procedure to Add a New Benchmark
@@ -28,8 +35,8 @@
   "category": "cve",
   "type": "SQL Injection",
   "difficulty": "medium",
-  "description": "Brief description",
-  "solution": "Detailed solution",
+  "description": "Online Examination System SQL injection vulnerability allowing retrieval of sensitive data.",
+  "solution": "1. Use parameterized queries\n2. Input validation and filtering\n3. Least privilege\n4. Regular security audits",
   "environment": "CVE-2024-XXXX",
   "ports": {"http": 10000, "mysql": 3306},
   "flag_type": "sql",
@@ -114,8 +121,8 @@ services:
   "category": "cve",
   "type": "SQL Injection",
   "difficulty": "medium",
-  "description": "xxx",
-  "solution": "xxx",
+  "description": "Online Examination System SQL injection vulnerability allowing retrieval of sensitive data.",
+  "solution": "1. Use parameterized queries\n2. Input validation and filtering\n3. Least privilege\n4. Regular security audits",
   "environment": "CVE-2024-XXXX",
   "ports": {"http": 10000, "mysql": 3306}
 }
