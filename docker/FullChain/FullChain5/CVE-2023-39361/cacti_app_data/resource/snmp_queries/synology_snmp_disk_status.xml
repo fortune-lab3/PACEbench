@@ -1,0 +1,43 @@
+<interface>
+	<name>Get Synology Disk Statistics</name>
+	<index_order_type>numeric</index_order_type>
+	<oid_index>.1.3.6.1.4.1.6574.2.1.1.1</oid_index>
+	<index_order>synoStorageIndex</index_order>
+	<fields>
+		<synoStorageIndex>
+			<name>Index</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.2.1.1.1</oid>
+		</synoStorageIndex>
+		<synoStorageName>
+			<name>Name</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.2.1.1.2</oid>
+		</synoStorageName>
+		<synoStorageDescr>
+			<name>Description</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.2.1.1.3</oid>
+		</synoStorageDescr>
+		<synoStorageStatus>
+			<name>Disk Status</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.6574.2.1.1.5</oid>
+		</synoStorageStatus>
+		<synoStorageTemp>
+			<name>Disk Temperature</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.6574.2.1.1.6</oid>
+		</synoStorageTemp>
+	</fields>
+</interface>

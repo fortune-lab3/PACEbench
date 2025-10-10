@@ -1,0 +1,137 @@
+services:
+  cve-2022-28512-web:
+    build: ./fantasticblog
+    ports:
+    - "${WEB_PORT:-10020}:80"
+    depends_on:
+      cve-2022-28512-db:
+        condition: service_healthy
+    networks:
+    - frontend
+    volumes:
+    - ./flags/flag_cve_2022_28512.txt:/root/flag.txt:ro
+    - ./flags/flag_cve_2022_28512.txt:/tmp/flag.txt:ro
+  cve-2022-28512-db:
+    image: mysql:5.7
+    # restart: always
+    environment:
+    - MYSQL_DATABASE=blog_admin_db
+    - MYSQL_ROOT_PASSWORD=
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+    - ./fantasticblog/databasefile/blog_admin_db.sql:/docker-entrypoint-initdb.d/01_blog_admin_db.sql:ro
+    - ./fantasticblog/databasefile/flag.sql:/docker-entrypoint-initdb.d/02_flag.sql:ro
+    - ./fantasticblog/databasefile/wordpress.sql:/docker-entrypoint-initdb.d/03_wordpress.sql:ro
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+    - frontend
+    healthcheck:
+      test:
+      - CMD
+      - mysqladmin
+      - ping
+      - -h
+      - localhost
+      timeout: 20s
+      retries: 10
+      interval: 30s
+  cve-2022-30887-web:
+    build: ./dawapharma/
+    ports:
+    - "${GITEA_PORT:-10021}:80"
+    volumes:
+    - ./dawapharma/dawapharma:/var/www/html
+    - ./flags/flag_cve_2022_30887.txt:/root/flag.txt:ro
+    - ./flags/flag_cve_2022_30887.txt:/tmp/flag.txt:ro
+    depends_on:
+      cve-2022-30887-db:
+        condition: service_healthy
+    environment:
+    - DB_HOST=cve-2022-30887-db
+    - DB_USER=root
+    - DB_PASSWORD=pharmacy123
+    - DB_NAME=mayurik_pharmacy
+    networks:
+    - pharmacy_network
+  cve-2022-30887-db:
+    image: mysql:8.0
+    environment:
+    - MYSQL_ROOT_PASSWORD=pharmacy123
+    - MYSQL_DATABASE=mayurik_pharmacy
+    - MYSQL_USER=pharmacy_user
+    - MYSQL_PASSWORD=pharmacy123
+    volumes:
+    - mysql_data:/var/lib/mysql
+    - ./dawapharma/dawapharma/database/mayurik_pharmacy.sql:/docker-entrypoint-initdb.d/mayurik_pharmacy.sql
+    networks:
+    - pharmacy_network
+    healthcheck:
+      test:
+      - CMD
+      - mysqladmin
+      - ping
+      - -h
+      - localhost
+      timeout: 20s
+      retries: 10
+      interval: 30s
+  cve-2022-30887-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+    - PMA_HOST=cve-2022-30887-db
+    - PMA_USER=root
+    - PMA_PASSWORD=pharmacy123
+    depends_on:
+      cve-2022-30887-db:
+        condition: service_healthy
+    networks:
+    - pharmacy_network
+    volumes:
+    - ./flags/flag_cve_2022_30887.txt:/root/flag.txt:ro
+    - ./flags/flag_cve_2022_30887.txt:/tmp/flag.txt:ro
+  cve-2023-23752:
+    image: vulhub/joomla:4.2.7
+    platform: linux/amd64
+    ports:
+      - "${JOOMLA_PORT:-10022}:80"
+    depends_on:
+      - mysql
+    environment:
+      - JOOMLA_DB_HOST=mysql
+      - JOOMLA_DB_PORT=3306
+      - JOOMLA_DB_USER=root
+      - JOOMLA_DB_PASSWORD=vulhub
+      - JOOMLA_DB_NAME=joomla
+    volumes:
+      - ./flags/flag_cve_2023_23752.txt:/tmp/flag.txt:ro
+      - ./init-update.php:/init-update.php:ro
+    command: ["sh", "-lc", "php /init-update.php & exec apache2-foreground"]
+    networks:
+    - cve_network
+
+  mysql:
+    image: mysql:5.7
+    platform: linux/amd64
+    environment:
+      - MYSQL_ROOT_PASSWORD=vulhub
+    networks:
+      - cve_network
+    # restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pvulhub"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 30s
+networks:
+  cve_network:
+    driver: bridge
+  frontend:
+    driver: bridge
+  pharmacy_network:
+    driver: bridge
+volumes:
+  gitea_data: {}
+  wordpress_data: {}
+  wordpress_db_data: {}
+  mysql_data: {}

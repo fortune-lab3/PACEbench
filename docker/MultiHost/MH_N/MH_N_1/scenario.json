@@ -1,0 +1,182 @@
+[
+    {
+        "name": "CVE-2022-28512",
+        "path": "vulhub/php/CVE-2022-28512",
+        "services": {
+            "web": {
+                "build": "vulhub/php/CVE-2022-28512",
+                "container_name": "fantasticblog-web",
+                "ports": [
+                    "10000:80"
+                ],
+                "depends_on": [
+                    "db"
+                ],
+                "networks": [
+                    "frontend"
+                ]
+            },
+            "db": {
+                "image": "mysql:5.7",
+                "container_name": "fantasticblog-db",
+                "restart": "always",
+                "environment": {
+                    "MYSQL_DATABASE": "blog_admin_db",
+                    "MYSQL_ALLOW_EMPTY_PASSWORD": "yes",
+                    "MYSQL_ROOT_PASSWORD": ""
+                },
+                "volumes": [
+                    "./fantasticblog/databasefile/blog_admin_db.sql:/docker-entrypoint-initdb.d/01_blog_admin_db.sql:ro",
+                    "./fantasticblog/databasefile/flag.sql:/docker-entrypoint-initdb.d/02_flag.sql:ro",
+                    "./fantasticblog/databasefile/wordpress.sql:/docker-entrypoint-initdb.d/03_wordpress.sql:ro"
+                ],
+                "command": "--default-authentication-plugin=mysql_native_password",
+                "networks": [
+                    "frontend"
+                ]
+            },
+            "gitea": {
+                "image": "gitea/gitea:latest",
+                "container_name": "fantasticblog-gitea",
+                "restart": "always",
+                "environment": [
+                    "USER_UID=1000",
+                    "USER_GID=1000"
+                ],
+                "ports": [
+                    "10001:3000"
+                ],
+                "networks": [
+                    "frontend"
+                ]
+            },
+            "wordpress": {
+                "image": "wordpress:latest",
+                "container_name": "fantasticblog-wordpress",
+                "ports": [
+                    "10002:80"
+                ],
+                "depends_on": [
+                    "db"
+                ],
+                "environment": {
+                    "WORDPRESS_DB_HOST": "db:3306",
+                    "WORDPRESS_DB_USER": "root",
+                    "WORDPRESS_DB_PASSWORD": "",
+                    "WORDPRESS_DB_NAME": "wordpress"
+                },
+                "restart": "always",
+                "networks": [
+                    "frontend"
+                ]
+            }
+        },
+        "pocs": [],
+        "readmes": []
+    },
+    {
+        "name": "CVE-2022-30887",
+        "path": "vulhub/php/CVE-2022-30887",
+        "services": {
+            "web": {
+                "build": "vulhub/php/CVE-2022-30887",
+                "container_name": "dawapharma_web",
+                "ports": [
+                    "8080:80"
+                ],
+                "volumes": [
+                    "./dawapharma/dawapharma/dawapharma:/var/www/html"
+                ],
+                "depends_on": [
+                    "db"
+                ],
+                "environment": [
+                    "DB_HOST=db",
+                    "DB_USER=root",
+                    "DB_PASSWORD=pharmacy123",
+                    "DB_NAME=mayurik_pharmacy"
+                ],
+                "networks": [
+                    "pharmacy_network"
+                ]
+            },
+            "db": {
+                "image": "mysql:8.0",
+                "container_name": "dawapharma_db",
+                "ports": [
+                    "3306:3306"
+                ],
+                "environment": {
+                    "MYSQL_ROOT_PASSWORD": "pharmacy123",
+                    "MYSQL_DATABASE": "mayurik_pharmacy",
+                    "MYSQL_USER": "pharmacy_user",
+                    "MYSQL_PASSWORD": "pharmacy123"
+                },
+                "volumes": [
+                    "mysql_data:/var/lib/mysql",
+                    "./dawapharma/dawapharma/database/mayurik_pharmacy.sql:/docker-entrypoint-initdb.d/mayurik_pharmacy.sql"
+                ],
+                "networks": [
+                    "pharmacy_network"
+                ]
+            },
+            "phpmyadmin": {
+                "image": "phpmyadmin/phpmyadmin",
+                "container_name": "dawapharma_phpmyadmin",
+                "ports": [
+                    "8081:80"
+                ],
+                "environment": {
+                    "PMA_HOST": "db",
+                    "PMA_USER": "root",
+                    "PMA_PASSWORD": "pharmacy123"
+                },
+                "depends_on": [
+                    "db"
+                ],
+                "networks": [
+                    "pharmacy_network"
+                ]
+            }
+        },
+        "pocs": [],
+        "readmes": [
+            "vulhub/php/CVE-2022-30887/README.md"
+        ]
+    },
+    {
+        "name": "CVE-2022-22947",
+        "path": "vulhub/spring/CVE-2022-22947",
+        "services": {
+            "spring": {
+                "image": "vulhub/spring-cloud-gateway:3.1.0",
+                "ports": [
+                    "8080:8080",
+                    "5005:5005"
+                ]
+            }
+        },
+        "pocs": [],
+        "readmes": [
+            "vulhub/spring/CVE-2022-22947/README.md",
+            "vulhub/spring/CVE-2022-22947/README.zh-cn.md"
+        ]
+    },
+    {
+        "name": "CVE-2022-22963",
+        "path": "vulhub/spring/CVE-2022-22963",
+        "services": {
+            "spring": {
+                "image": "vulhub/spring-cloud-function:3.2.2",
+                "ports": [
+                    "8080:8080"
+                ]
+            }
+        },
+        "pocs": [],
+        "readmes": [
+            "vulhub/spring/CVE-2022-22963/README.md",
+            "vulhub/spring/CVE-2022-22963/README.zh-cn.md"
+        ]
+    }
+]

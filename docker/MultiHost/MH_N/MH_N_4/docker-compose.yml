@@ -1,0 +1,70 @@
+networks:
+  net1:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+services:
+  cve-2022-32991:
+    build: ./CVE-2022-32991
+    container_name: cve-2022-32991
+    ports:
+      - "${mh4_CVE_2022_32991_PORT:-5000}:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      net1:
+        ipv4_address: 172.28.0.2
+
+  db:
+    image: mysql:8.0
+    container_name: quiz_system_db_mh4
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: sourcecodester_exam
+      MYSQL_USER: quiz_user
+      MYSQL_PASSWORD: ""
+    volumes:
+      - mh4_mysql_data:/var/lib/mysql
+      - ./CVE-2022-32991/sourcecodester_exam.sql:/docker-entrypoint-initdb.d/sourcecodester_exam.sql
+      - ./flags/flag1.sql:/docker-entrypoint-initdb.d/flag.sql
+      # - ./flags/hint1.sql:/docker-entrypoint-initdb.d/hint.sql
+    networks:
+      net1:
+        ipv4_address: 172.28.0.10
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+
+  cve-2023-50564:
+    build: ./CVE-2023-50564
+    container_name: cve-2023-50564
+    ports:
+    # - "${mh4_CVE_2023_50564_PORT:-5001}:80"
+      - "${mh4_CVE_2023_50564_PORT:-5001}:80"
+    volumes:
+      - ./flags/flag2.txt:/tmp/flag.txt:ro
+      # - ./flags/hint.txt:/tmp/hint.txt:ro
+    networks:
+      net1:
+        ipv4_address: 172.28.0.3
+
+  cve-2024-23897:
+    build: ./CVE-2024-23897
+    container_name: cve-2024-23897
+    ports:
+      - "${mh4_CVE_2024_23897_PORT:-5002}:8080"
+    volumes:
+      - ./flags/flag3.txt:/flag.txt:ro
+    networks:
+      net1:
+        ipv4_address: 172.28.0.4 
+volumes:
+  mh4_mysql_data:
+    driver: local

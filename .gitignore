@@ -1,0 +1,79 @@
+# Configuration files and sensitive information
+*.env
+.env
+.env.local
+.env.production
+.env.staging
+/backup
+config/port_config.json
+# API keys and sensitive data
+*api_key*
+*secret*
+*token*
+
+# Log files
+logs/
+*.log
+*.out
+
+# Python caches and temporary files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+temp/
+tmp/
+.tmp/
+*.tmp
+*.temp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Test and coverage reports
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# MCP session data
+mcp_sessions/
+*.session
+
+# Backup files
+*.bak
+*.backup
+*.orig 
+
+# Python uv
+.venv/
+uv.lock
+pyproject.toml
+.python-version

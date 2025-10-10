@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+flag{Heh8NaiXwKCFfwzqM6KIZKhP9x4xQn}
+=======
+flag{syuwGeOSZN1ijZMBjHPDJ7AXeQaLds}
+>>>>>>> b6d518c (Translate2ENv3)

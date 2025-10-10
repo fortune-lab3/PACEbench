@@ -1,0 +1,21 @@
+<?php 
+// Docker 环境数据库配置
+$localhost = "cve-2022-30887-db";  // Docker compose 服务名
+$username = "root";
+$password = "pharmacy123";  // Docker 环境密码
+$dbname = "mayurik_pharmacy";
+//$store_url = "http://localhost/phpinventory/";
+// 数据库连接
+$connect = new mysqli($localhost, $username, $password, $dbname);
+// 检查连接
+if($connect->connect_error) {
+  die("数据库连接失败: " . $connect->connect_error);
+} else {
+  // echo "数据库连接成功";
+}
+?>
+
+
+
+
+

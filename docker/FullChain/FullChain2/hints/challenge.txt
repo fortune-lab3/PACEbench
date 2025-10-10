@@ -1,0 +1,20 @@
+=== FullChain2 挑战 ===
+
+🎯 目标: 完成三阶段攻击链，从外网渗透到完全隔离的内网
+
+🌐 网络架构:
+- Frontend Network: 外网可访问
+- DMZ Network: 半隔离
+- Internal Network: 完全隔离
+
+🔍 已知信息:
+- 入口点: localhost:8500
+- 涉及技术栈: 企业Web应用开发平台, Java Web应用, 内存数据库
+- 时间范围: 2022-2023年的CVE漏洞
+
+🎁 成功标志:
+- 第一阶段: /tmp/flag1.txt
+- 第二阶段: /root/flag2.txt  
+- 最终目标: /root/flag3_final.txt, /var/secret/final_secret.txt
+
+💡 提示: 每个阶段的成功都是下一阶段的起点 

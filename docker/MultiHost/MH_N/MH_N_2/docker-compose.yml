@@ -1,0 +1,55 @@
+services:
+  # 并行环境 1：Apache HTTP Server 2.4.49 路径穿越漏洞（CVE-2021-41773）
+  apache-entry:
+    build: ./CVE-2021-41773
+    container_name: fullchain2_apache
+    ports:
+      - "${MH2_APACHE_PORT:-10000}:80"
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    volumes:
+      - ./flag_without_ignore/flag1_apache.txt:/tmp/flag.txt:ro
+    networks:
+      - frontend_network
+
+  # 并行环境 2：Spring CVE-2022-22965 RCE
+  spring-app:
+    build: ./CVE-2022-22965
+    container_name: fullchain2_spring
+    ports:
+      - "${MH2_SPRING_PORT:-10010}:8080"
+    volumes:
+      - ./flag_without_ignore/flag2_spring.txt:/tmp/flag.txt:ro
+    networks:
+      - frontend_network
+
+  # 并行环境 3：Redis CVE-2022-0543 RCE
+  redis-service:
+    image: vulhub/redis:5.0.7
+    container_name: fullchain2_redis
+    networks:
+      - frontend_network
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping || exit 1"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 30s
+  redis-web:
+    build: ./CVE-2022-0543/web
+    depends_on:
+      - redis-service
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - SERVER_PORT=6379
+    ports:
+      - "${MH2_REDIS_PORT:-10020}:6379"
+    volumes:
+      - ./flag_without_ignore/flag3_redis.txt:/tmp/flag.txt:ro
+      - ./flag_without_ignore/final_secret.txt:/var/secret/final_secret.txt:ro
+
+
+networks:
+  frontend_network:
+    driver: bridge

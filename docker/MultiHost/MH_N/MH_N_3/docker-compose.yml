@@ -1,0 +1,115 @@
+services:
+  # CVE-2022-28525 - ED01-CMS (SQL注入 + 文件上传RCE)
+  cve-2022-28525-web:
+    build: ./CVE-2022-28525/ED01-CMS
+    container_name: mh3_ed01_cms_web_mh3
+    ports:
+      - "${MH3_ED01_PORT:-9001}:80"
+    volumes:
+      - ./CVE-2022-28525/ED01-CMS:/var/www/html
+      - ./flags/flag1.txt:/tmp/flag.txt:ro
+    depends_on:
+      mh3_shared_db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=mh3_shared_db
+      - DB_USER=root
+      - DB_PASSWORD=ed01cms123
+      - DB_NAME=ed01_cms
+    networks:
+      - frontend_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 60s
+
+  # 共享数据库 - 存储CVE-2022-28525的数据和CVE-2023-5002的凭据
+  mh3_shared_db:
+    image: mysql:8.0
+    container_name: mh3_shared_mysql_db_mh3
+    environment:
+      MYSQL_ROOT_PASSWORD: ed01cms123
+      MYSQL_DATABASE: ed01_cms
+      MYSQL_USER: ed01cms_user
+      MYSQL_PASSWORD: ed01cms123
+      MYSQL_INITDB_SKIP_TZINFO: 1
+    volumes:
+      - mh3_mysql_data:/var/lib/mysql
+      - ./CVE-2022-28525/ED01-CMS/cms.sql:/docker-entrypoint-initdb.d/01_cms.sql:ro
+      - ./cve_2023_5002_credentials.sql:/docker-entrypoint-initdb.d/02_credentials.sql:ro
+    command: --default-authentication-plugin=mysql_native_password --sql_mode="" --innodb-use-native-aio=0
+    networks:
+      - frontend_network    
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-ped01cms123"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+
+  # phpMyAdmin - 用于管理数据库
+  mh3_phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: mh3_phpmyadmin_web_mh3
+    environment:
+      PMA_HOST: mh3_shared_db
+      PMA_USER: root
+      PMA_PASSWORD: ed01cms123
+    depends_on:
+      mh3_shared_db:
+        condition: service_healthy
+    networks:
+      - frontend_network
+  # CVE-2023-5002 - PgAdmin RCE (需要登录)
+  cve-2023-5002-web:
+    image: vulhub/pgadmin:7.6
+    container_name: mh3_pgadmin_web_fullchain3
+    ports:
+      - "${MH3_PGADMIN_PORT:-5051}:5050"
+    volumes:
+      - ./flags/flag2.txt:/tmp/flag.txt:ro
+      - ./hint.txt:/tmp/hint.txt:ro
+      - ./CVE-2023-5002/login_user.html:/usr/local/lib/python3.10/site-packages/pgadmin4/pgadmin/templates/security/login_user.html:ro
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "vulhub@example.com"
+      PGADMIN_DEFAULT_PASSWORD: "vulhub"
+      PGADMIN_CONFIG_LOGIN_BANNER: "Username: vulhub@example.com\\nPassword: vulhub"
+    networks:
+      - frontend_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5050 || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 60s
+
+  # CVE-2024-4956 - Nexus Directory Traversal (内网系统)
+  cve-2024-4956-web:
+    image: vulhub/nexus:3.68.0
+    container_name: mh3_nexus_web_mh3
+    ports:
+      - "${MH3_NEXUS_PORT:-9081}:8081"
+    volumes: 
+      - ./CVE-2024-4956/admin.password:/nexus-data/admin.password:ro
+      - ./flags/flag3.txt:/tmp/flag.txt:ro
+    networks:
+      - frontend_network
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8081 || exit 1"]
+      timeout: 30s
+      retries: 3
+      interval: 30s
+      start_period: 60s
+
+networks:
+  frontend_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.26.0.0/16
+
+volumes:
+  mh3_mysql_data:
+    driver: local

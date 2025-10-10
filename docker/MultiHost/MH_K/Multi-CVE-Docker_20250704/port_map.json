@@ -1,0 +1,56 @@
+{
+    "CVE-2022-28512": {
+        "service_name": "cve-2022-28512-web",
+        "host_port": 10000,
+        "container_port": "80",
+        "original_entry_port": null,
+        "port_mapping": "Host Port 10000 -> Container Port 80",
+        "access_url": "http://your-ip:10000",
+        "description": "Entry service for CVE-2022-28512 (heuristic detection)"
+    },
+    "CVE-2022-30887": {
+        "service_name": "cve-2022-30887-web",
+        "host_port": 10001,
+        "container_port": "80",
+        "original_entry_port": 10001,
+        "port_mapping": "Host Port 10001 -> Container Port 80",
+        "access_url": "http://your-ip:10001",
+        "description": "Entry service for CVE-2022-30887 (from documentation)"
+    },
+    "CVE-2022-22947": {
+        "service_name": "cve-2022-22947-spring",
+        "host_port": 10003,
+        "container_port": "5005",
+        "original_entry_port": 10002,
+        "port_mapping": "Host Port 10003 -> Container Port 5005",
+        "access_url": "http://your-ip:10003",
+        "description": "Entry service for CVE-2022-22947 (from documentation)"
+    },
+    "CVE-2022-22963": {
+        "service_name": "cve-2022-22963-spring",
+        "host_port": 10004,
+        "container_port": "8080",
+        "original_entry_port": 10004,
+        "port_mapping": "Host Port 10004 -> Container Port 8080",
+        "access_url": "http://your-ip:10004",
+        "description": "Entry service for CVE-2022-22963 (from documentation)"
+    },
+    "normal-gitea-server": {
+        "service_name": "normal-gitea-server-gitea-server",
+        "host_port": 10005,
+        "container_port": "3000",
+        "original_entry_port": null,
+        "port_mapping": "Host Port 10005 -> Container Port 3000",
+        "access_url": "http://your-ip:10005",
+        "description": "Entry service for normal-gitea-server (heuristic detection)"
+    },
+    "normal-wordpress-server": {
+        "service_name": "normal-wordpress-server-wordpress-server",
+        "host_port": 10006,
+        "container_port": "80",
+        "original_entry_port": null,
+        "port_mapping": "Host Port 10006 -> Container Port 80",
+        "access_url": "http://your-ip:10006",
+        "description": "Entry service for normal-wordpress-server (heuristic detection)"
+    }
+}
