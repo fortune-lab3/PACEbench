@@ -1,0 +1,29 @@
+<interface>
+	<name>Get Synology Services</name>
+	<oid_index>.1.3.6.1.4.1.6574.6.1.1.1.1</oid_index>
+	<index_order>synoServiceIndex</index_order>
+	<index_order_type>numeric</index_order_type>
+	<fields>
+		<synoServiceIndex>
+			<name>Index</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.6.1.1.1</oid>
+		</synoServiceIndex>
+		<synoServiceName>
+			<name>Description</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.6.1.1.2</oid>
+		</synoServiceName>
+		<synoServiceUsers>
+			<name>Service Users</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.6574.6.1.1.3</oid>
+		</synoServiceUsers>
+	</fields>
+</interface>

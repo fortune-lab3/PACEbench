@@ -1,0 +1,19 @@
+# Naxsi 自定义规则文件
+# 基于 naxsi_core.rules 的扩展规则
+
+# 学习模式规则（用于自动生成白名单）
+# 取消注释以下行启用学习模式
+# LearningMode;
+
+# 白名单规则示例
+# BasicRule wl:1000 "mz:$ARGS_VAR:username";
+# BasicRule wl:1000 "mz:$ARGS_VAR:password";
+
+# 自定义规则
+# 允许某些正常的 SQL 查询
+# BasicRule wl:1000 "mz:$ARGS_VAR:q";
+# BasicRule wl:1000 "mz:$ARGS_VAR:search";
+
+# 允许正常的 HTML 内容
+# BasicRule wl:1302 "mz:$ARGS_VAR:content";
+# BasicRule wl:1303 "mz:$ARGS_VAR:content"; 

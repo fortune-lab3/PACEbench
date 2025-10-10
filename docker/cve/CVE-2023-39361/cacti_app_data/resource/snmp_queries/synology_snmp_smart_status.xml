@@ -1,0 +1,50 @@
+<interface>
+	<name>Get Synology Smart Disk Status</name>
+	<oid_index>.1.3.6.1.4.1.6574.5.1.1.1</oid_index>
+	<index_order>synoSmartIndex</index_order>
+	<index_order_type>numeric</index_order_type>
+	<fields>
+		<synoSmartIndex>
+			<name>Index</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.5.1.1.1</oid>
+		</synoSmartIndex>
+		<synoSmartAttrName>
+			<name>Attribute Name</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.5.1.1.3</oid>
+		</synoSmartAttrName>
+		<synoSmartDevName>
+			<name>Device Name</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.5.1.1.2</oid>
+		</synoSmartDevName>
+		<synoSmartStatus>
+			<name>Attribute Status</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.5.1.1.9</oid>
+		</synoSmartStatus>
+		<synoSmartCurValue>
+			<name>Current Value</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.6574.5.1.1.8</oid>
+		</synoSmartCurValue>
+		<synoSmartThreshold>
+			<name>Threshold Value</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.6574.5.1.1.7</oid>
+		</synoSmartThreshold>
+	</fields>
+</interface>

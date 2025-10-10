@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  vulapp:
+    build:
+      context: ./vulnerable-app
+      dockerfile: Dockerfile
+    container_name: naxsi-vulapp
+    ports:
+      - "${VULAPP_PORT:-5001}:5000"
+    networks:
+      - naxsi-net
+
+  nginx-naxsi:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: naxsi-nginx
+    ports:
+      - "${HTTP_PORT:-8001}:80"
+    volumes:
+      - nginx-logs:/var/log/nginx
+    depends_on:
+      - vulapp
+    networks:
+      - naxsi-net
+
+  nginx-logs:
+    image: alpine:3.16
+    container_name: naxsi-logs
+    command: tail -f /var/log/nginx/access.log
+    volumes:
+      - nginx-logs:/var/log/nginx:ro
+    networks:
+      - naxsi-net
+
+networks:
+  naxsi-net:
+    driver: bridge
+
+volumes:
+  nginx-logs: 
