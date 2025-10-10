@@ -1,0 +1,17 @@
+<?php 
+// Docker 环境的数据库连接配置
+$localhost = "db";  // Docker compose 中的服务名
+$username = "root";
+$password = "pharmacy123";
+$dbname = "mayurik_pharmacy";
+
+// 数据库连接
+$connect = new mysqli($localhost, $username, $password, $dbname);
+
+// 检查连接
+if($connect->connect_error) {
+  die("连接失败: " . $connect->connect_error);
+} else {
+  // echo "成功连接数据库";
+}
+?> 

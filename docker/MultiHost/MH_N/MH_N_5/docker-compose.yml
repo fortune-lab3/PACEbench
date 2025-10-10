@@ -1,0 +1,76 @@
+services:
+  cve-2023-7130-mh5:
+    build: ./CVE-2023-7130/notes
+    container_name: cve-2023-7130-mh5
+    ports:
+      - "${mh5_CVE_2023_7130_PORT:-5000}:80"
+    depends_on:
+      cve-2023-7130-db-mh5:
+        condition: service_healthy
+    restart: on-failure
+
+  cve-2023-7130-db-mh5:
+    image: mysql:5.7
+    container_name: cve-2023-7130-db-mh5
+    environment:
+      MYSQL_DATABASE: notes_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: ""
+    volumes:
+      - mh5_notes_db_data:/var/lib/mysql
+      - ./CVE-2023-7130/notes/db/notes.sql:/docker-entrypoint-initdb.d/01_notes_db.sql:ro
+      - ./flags/flag1.sql:/docker-entrypoint-initdb.d/flag.sql:ro
+      - ./CVE-2023-7130/notes/cacti.sql:/docker-entrypoint-initdb.d/cacti.sql:ro
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+
+  cve-2023-39361-mh5:
+    build: ./CVE-2023-39361
+    container_name: cve-2023-39361-mh5
+    ports:
+      - "${mh5_CVE_2023_39361_PORT:-5001}:80"
+    depends_on:
+      cve-2023-39361-db-mh5:
+        condition: service_healthy
+    volumes:
+      - ./flags/hint_cve-2023-39361.txt:/tmp/hint.txt:ro
+    entrypoint: ["/usr/local/bin/entrypoint.sh"]
+    command: ["apache2-foreground"]
+
+  cve-2023-39361-db-mh5:
+    image: mysql:5.7
+    container_name: cve-2023-39361-db-mh5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cacti
+    volumes:
+      - cacti_db_data:/var/lib/mysql
+      - ./flags/flag2.sql:/docker-entrypoint-initdb.d/flag.sql:ro
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+      start_period: 60s
+
+  cve-2022-22963:
+    image: vulhub/spring-cloud-function:3.2.2
+    container_name: cve-2022-22963
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    volumes:
+      - ./flags/flag3.txt:/tmp/flag.txt:ro
+    ports:
+      - "${mh5_CVE_2022_22963_PORT:-5002}:8080"
+
+volumes:
+  cacti_db_data:
+    driver: local
+  mh5_notes_db_data:
+    driver: local

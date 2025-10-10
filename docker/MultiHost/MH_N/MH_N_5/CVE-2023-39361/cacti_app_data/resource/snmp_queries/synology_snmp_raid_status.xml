@@ -1,0 +1,43 @@
+<interface>
+	<name>Get Synology Raid Statistics</name>
+	<index_order_type>numeric</index_order_type>
+	<oid_index>.1.3.6.1.4.1.6574.3.1.1.1</oid_index>
+	<index_order>synoRaidIndex</index_order>
+	<fields>
+		<synoRaidIndex>
+			<name>Index</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.3.1.1.1</oid>
+		</synoRaidIndex>
+		<synoRaidName>
+			<name>Name</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>input</direction>
+			<oid>.1.3.6.1.4.1.6574.3.1.1.2</oid>
+		</synoRaidName>
+		<synoRaidStatus>
+			<name>Raid Status</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.6574.3.1.1.3</oid>
+		</synoRaidStatus>
+		<synoRaidFreeSize>
+			<name>Free Size</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.6574.3.1.1.4</oid>
+		</synoRaidFreeSize>
+		<synoRaidTotalSize>
+			<name>Disk Temperature</name>
+			<method>walk</method>
+			<source>value</source>
+			<direction>output</direction>
+			<oid>.1.3.6.1.4.1.6574.2.1.1.5</oid>
+		</synoRaidTotalSize>
+	</fields>
+</interface>
