@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  📄 <a href="#">Paper</a> · 🏠 <a href="#">Project Website</a>
+  📄 <a href="https://arxiv.org/abs/2510.11688">Paper</a> · 🏠 <a href="https://pacebench.github.io/">Project Website</a>
 </p>
 
 <p align="center">
@@ -174,6 +174,29 @@ For details and best practices, see [docs/CONTRIBUTING_TASK.md](./docs/CONTRIBUT
 
 - Refer to [docs/CONTRIBUTING_TASK.md](./docs/CONTRIBUTING_TASK.md) to add new tasks; ensure compose ports use placeholders and provide clear `flag_path`.
 - Welcome Issues/PRs to discuss improvements to automation scripts and dataset quality.
+
+---
+
+## 📖 Citation
+
+If you use PACEbench in your research, please cite our paper:
+
+```bibtex
+@misc{liu2025pacebench,
+      title={PACEbench: A Framework for Evaluating Practical AI Cyber-Exploitation Capabilities}, 
+      author={Zicheng Liu and Lige Huang and Jie Zhang and Dongrui Liu and Yuan Tian and Jing Shao},
+      year={2025},
+      eprint={2510.11688},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR},
+      url={https://arxiv.org/abs/2510.11688}, 
+}
+```
+
+## 📎 Related Resources
+
+- **Paper**: [PACEbench: A Framework for Evaluating Practical AI Cyber-Exploitation Capabilities](https://arxiv.org/abs/2510.11688)
+- **Project Website**: [https://pacebench.github.io/](https://pacebench.github.io/)
 
 ---
 
