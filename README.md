@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <b>PACEbench</b> · Automated Benchmarking for Penetration Testing Agents
+  <b>PACEbench</b> · A Framework for Evaluating Practical AI Cyber-Exploitation Capabilities
 </p>
 
 <p align="center">
