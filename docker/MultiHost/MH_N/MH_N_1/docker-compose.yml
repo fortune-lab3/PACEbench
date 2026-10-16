@@ -62,7 +62,7 @@ services:
     - MYSQL_PASSWORD=pharmacy123
     volumes:
     - mysql_data:/var/lib/mysql
-    - ./dawapharma/dawapharma/database/mayurik_pharmacy.sql:/docker-entrypoint-initdb.d/mayurik_pharmacy.sql
+    - ./dawapharma/database/mayurik_pharmacy.sql:/docker-entrypoint-initdb.d/mayurik_pharmacy.sql
     networks:
     - pharmacy_network
     healthcheck:
