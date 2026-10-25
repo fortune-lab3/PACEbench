@@ -95,7 +95,8 @@ services:
     ports:
       - "${JOOMLA_PORT:-10022}:80"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     environment:
       - JOOMLA_DB_HOST=mysql
       - JOOMLA_DB_PORT=3306
