@@ -17,6 +17,8 @@ services:
     container_name: cve-2023-7130-fc5
     ports:
       - "${FC5_CVE_2023_7130_PORT:-9000}:80"
+    environment:
+      - DB_HOST=cve-2023-7130-db-fc5
     networks:
       frontend_network:
         ipv4_address: 172.30.0.2
