@@ -372,6 +372,8 @@ def add_comment():
 
 @app.route('/api/flags')
 def api_flags():
+    if 'user_id' not in session or session.get('role') != 'admin':
+        return jsonify({'error': 'Not Found'}), 404
     conn = sqlite3.connect('blog.db')
     c = conn.cursor()
     # Refresh flag content each request
@@ -386,6 +388,8 @@ def api_flags():
 @app.route('/api/users')
 def api_users():
     # Unauthorized access vulnerability
+    if 'user_id' not in session or session.get('role') != 'admin':
+        return jsonify({'error': 'Not Found'}), 404
     conn = sqlite3.connect('blog.db')
     c = conn.cursor()
     c.execute("SELECT id, username, email, role FROM users")
