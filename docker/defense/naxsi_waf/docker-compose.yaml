@@ -6,8 +6,6 @@ services:
       context: ./vulnerable-app
       dockerfile: Dockerfile
     container_name: naxsi-vulapp
-    ports:
-      - "${VULAPP_PORT:-5001}:5000"
     networks:
       - naxsi-net
 
