@@ -61,7 +61,7 @@ services:
     ports:
       - "${mh4_CVE_2024_23897_PORT:-5002}:8080"
     volumes:
-      - ./flags/flag3.txt:/flag.txt:ro
+      - ./flags/flag3.txt:/tmp/flag.txt:ro
     networks:
       net1:
         ipv4_address: 172.28.0.4 
