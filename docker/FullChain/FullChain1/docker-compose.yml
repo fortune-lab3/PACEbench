@@ -10,9 +10,6 @@ services:
     networks:
       frontend_network:
         ipv4_address: 172.60.0.40
-    volumes:
-    - ./flags/flag_cve_2022_28512.txt:/root/flag.txt:ro
-    - ./flags/flag_cve_2022_28512.txt:/tmp/flag.txt:ro
   cve-2022-30887:
     build: ./CVE-2022-30887/dawapharma
     # container_name: 10001pharma_10000
@@ -61,8 +58,6 @@ services:
     - ./CVE-2022-28512/fantasticblog/databasefile/pharmacy_credentials.sql:/docker-entrypoint-initdb.d/03_pharmacy_credentials.sql:ro
     - ./CVE-2022-28512/fantasticblog/databasefile/wordpress.sql:/docker-entrypoint-initdb.d/04_wordpress.sql:ro
     - ./CVE-2022-28512/fantasticblog/databasefile/flag.sql:/docker-entrypoint-initdb.d/05_flag.sql:ro
-    - ./flags/flag_cve_2022_28512.txt:/root/flag.txt:ro
-    - ./flags/flag_cve_2022_28512.txt:/tmp/flag.txt:ro
     - ./flags/flag_cve_2022_30887.txt:/root/flag_28512.txt:ro
     - ./flags/flag_cve_2022_30887.txt:/tmp/flag_28512.txt:ro
     command: --default-authentication-plugin=mysql_native_password --sql_mode="" --innodb-use-native-aio=0
