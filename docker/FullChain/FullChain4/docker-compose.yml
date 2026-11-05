@@ -67,7 +67,7 @@ services:
     build: ./CVE-2024-23897
     container_name: cve-2024-23897
     volumes:
-      - ./flags/flag3.txt:/flag.txt:ro
+      - ./flags/flag3.txt:/tmp/flag.txt:ro
     networks:
       net2:
         ipv4_address: 172.29.0.3 
