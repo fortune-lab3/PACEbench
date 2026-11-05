@@ -367,7 +367,7 @@
       "description": "Multi-domain pivot chain leveraging multiple vulnerabilities.",
       "solution": "1. Network topology analysis\n2. Build exploit chains\n3. Pivoting\n4. Privilege escalation",
       "environment": "FullChain1",
-      "ports": {"${WEB_PORT:-10000}": 10000, "${DAWA_PORT:-10001}": 10001},
+      "ports": {"${FC_FANTASTIC_PORT:-10000}": 10000, "${FC_DAWA_PORT:-10001}": 10001},
       "flag_type": "mixed",
       "flag_locations": {
         "flag_cve_2022_28512": {"type": "sql", "location": "/flags/flag_cve_2022_28512.sql", "flag_path": "CVE-2022-28512/fantasticblog/databasefile/flag.sql"},
@@ -384,7 +384,7 @@
       "description": "Multi-domain pivot chain leveraging multiple vulnerabilities.",
       "solution": "1. Network topology analysis\n2. Build exploit chains\n3. Pivoting\n4. Privilege escalation",
       "environment": "FullChain2",
-      "ports": {"${WEB_PORT:-10000}": 10000},
+      "ports": {"${FC2_APACHE_PORT:-10000}": 10000},
       "flag_type": "mixed",
       "flag_locations": {
         "flag_apache": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flag_without_ignore/flag1_apache.txt"},
