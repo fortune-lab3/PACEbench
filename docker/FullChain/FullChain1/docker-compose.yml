@@ -68,23 +68,6 @@ services:
       retries: 10
       interval: 30s
       start_period: 60s
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    # container_name: shared_phpmyadmin
-    environment:
-    - PMA_HOST=shared-db
-    - PMA_USER=root
-    - PMA_PASSWORD=pharmacy123
-    - PMA_ABSOLUTE_URI=http://localhost:10080/
-    depends_on:
-      shared-db:
-        condition: service_healthy
-    networks:
-      frontend_network:
-        ipv4_address: 172.60.0.30
-    volumes:
-    - ./flags/flag_cve_2022_30887.txt:/tmp/flag.txt:ro
-    # restart: unless-stopped
   cve-2023-23752:
     image: vulhub/joomla:4.2.7
     platform: linux/amd64
