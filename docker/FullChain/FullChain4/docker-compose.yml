@@ -56,7 +56,7 @@ services:
       - "${FC4_CVE_2023_50564_PORT:-9009}:80"
     volumes:
       - ./flags/flag2.txt:/tmp/flag.txt:ro
-      - ./flags/hint.txt:/tmp/hint.txt:ro
+      # - ./flags/hint.txt:/tmp/hint.txt:ro
     networks:
       net1:
         ipv4_address: 172.28.0.3
