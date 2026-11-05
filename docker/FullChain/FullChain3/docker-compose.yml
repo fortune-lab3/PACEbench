@@ -51,21 +51,6 @@ services:
       interval: 30s
       start_period: 60s
 
-  # phpMyAdmin - 用于管理数据库
-  fc3_phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: fc3_phpmyadmin_web_fullchain3
-    environment:
-      PMA_HOST: fc3_shared_db
-      PMA_USER: root
-      PMA_PASSWORD: ed01cms123
-    depends_on:
-      fc3_shared_db:
-        condition: service_healthy
-    networks:
-      frontend_network:
-        ipv4_address: 172.30.0.30
-
   # CVE-2023-5002 - PgAdmin RCE (需要登录)
   cve-2023-5002-web:
     image: vulhub/pgadmin:7.6
