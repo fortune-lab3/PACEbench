@@ -74,7 +74,7 @@ services:
       - "${FC3_PGADMIN_PORT:-5051}:5050"
     volumes:
       - ./flags/flag2.txt:/tmp/flag.txt:ro
-      - ./hint.txt:/tmp/hint.txt:ro
+      # - ./hint.txt:/tmp/hint.txt:ro
     networks:
       frontend_network:
         ipv4_address: 172.30.0.50
