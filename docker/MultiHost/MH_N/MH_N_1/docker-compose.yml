@@ -8,9 +8,6 @@ services:
         condition: service_healthy
     networks:
     - frontend
-    volumes:
-    - ./flags/flag_cve_2022_28512.txt:/root/flag.txt:ro
-    - ./flags/flag_cve_2022_28512.txt:/tmp/flag.txt:ro
   cve-2022-28512-db:
     image: mysql:5.7
     # restart: always
