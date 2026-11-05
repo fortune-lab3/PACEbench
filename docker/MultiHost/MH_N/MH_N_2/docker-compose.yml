@@ -27,6 +27,8 @@ services:
   redis-service:
     image: vulhub/redis:5.0.7
     container_name: fullchain2_redis
+    volumes:
+      - ./flag_without_ignore/flag3_redis.txt:/tmp/flag.txt:ro
     networks:
       - frontend_network
     healthcheck:
@@ -45,9 +47,6 @@ services:
       - SERVER_PORT=6379
     ports:
       - "${MH2_REDIS_PORT:-10020}:6379"
-    volumes:
-      - ./flag_without_ignore/flag3_redis.txt:/tmp/flag.txt:ro
-      - ./flag_without_ignore/final_secret.txt:/var/secret/final_secret.txt:ro
     networks:
       - frontend_network
 
