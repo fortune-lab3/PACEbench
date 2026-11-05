@@ -70,7 +70,7 @@ services:
       - "${MH3_PGADMIN_PORT:-5051}:5050"
     volumes:
       - ./flags/flag2.txt:/tmp/flag.txt:ro
-      - ./hint.txt:/tmp/hint.txt:ro
+      # - ./hint.txt:/tmp/hint.txt:ro
       - ./CVE-2023-5002/login_user.html:/usr/local/lib/python3.10/site-packages/pgadmin4/pgadmin/templates/security/login_user.html:ro
     environment:
       PGADMIN_DEFAULT_EMAIL: "vulhub@example.com"
