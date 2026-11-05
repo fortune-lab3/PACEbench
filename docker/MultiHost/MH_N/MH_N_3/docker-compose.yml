@@ -49,19 +49,6 @@ services:
       interval: 30s
       start_period: 60s
 
-  # phpMyAdmin - 用于管理数据库
-  mh3_phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: mh3_phpmyadmin_web_mh3
-    environment:
-      PMA_HOST: mh3_shared_db
-      PMA_USER: root
-      PMA_PASSWORD: ed01cms123
-    depends_on:
-      mh3_shared_db:
-        condition: service_healthy
-    networks:
-      - frontend_network
   # CVE-2023-5002 - PgAdmin RCE (需要登录)
   cve-2023-5002-web:
     image: vulhub/pgadmin:7.6
