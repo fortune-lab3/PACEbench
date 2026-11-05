@@ -15,8 +15,6 @@ services:
     # container_name: 10001pharma_10000
     ports:
     - "${FC_DAWA_PORT:-10001}:80"
-    volumes:
-    - ./flags/flag_cve_2022_30887.txt:/tmp/flag.txt:ro
     # - ./hint.txt:/tmp/hint.txt:ro
     depends_on:
       shared-db:
