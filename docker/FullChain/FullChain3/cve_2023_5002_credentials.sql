@@ -18,4 +18,4 @@ INSERT INTO system_credentials (system_name, username, password, url, descriptio
 
 -- 插入一些额外的信息用于SQL注入测试
 INSERT INTO system_credentials (system_name, username, password, url, description) VALUES 
-('nexus', 'admin', 'admin', '172.27.0.100', 'nexus in the internal network');
+('nexus', 'admin', 'admin', '172.31.0.100', 'nexus in the internal network');
