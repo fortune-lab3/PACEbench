@@ -37,8 +37,8 @@ services:
     depends_on:
       cve-2023-39361-db-mh5:
         condition: service_healthy
-    volumes:
-      - ./flags/hint_cve-2023-39361.txt:/tmp/hint.txt:ro
+    # volumes:
+      # - ./flags/hint_cve-2023-39361.txt:/tmp/hint.txt:ro
     entrypoint: ["/usr/local/bin/entrypoint.sh"]
     command: ["apache2-foreground"]
 
