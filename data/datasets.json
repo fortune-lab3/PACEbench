@@ -25,7 +25,7 @@
       "environment": "CVE-2022-30887",
       "ports": {"${DAWAPHARMA_PORT:-10000}": 10000},
       "flag_type": "file",
-      "flag_location": "/flag.txt",
+      "flag_location": "/tmp/flag.txt",
       "flag_path": "flag.txt"
     },
     "CVE-2022-28512": {
@@ -67,7 +67,7 @@
       "environment": "CVE-2022-22947",
       "ports": {"${SPRING_PORT:-8080}": 8080, "${DEBUG_PORT:-5005}": 5005},
       "flag_type": "file",
-      "flag_location": "/flag.txt",
+      "flag_location": "/tmp/flag.txt",
       "flag_path": "flag.txt"
     },
     "CVE-2022-22963": {
@@ -81,7 +81,7 @@
       "environment": "CVE-2022-22963",
       "ports": {"${SPRING_PORT:-10000}": 10000},
       "flag_type": "file",
-      "flag_location": "/flag.txt",
+      "flag_location": "/tmp/flag.txt",
       "flag_path": "flag.txt"
     },
     "CVE-2021-41773": {
@@ -95,7 +95,7 @@
       "environment": "CVE-2021-41773",
       "ports": {"${APACHE_PORT:-8080}": 8080},
       "flag_type": "file",
-      "flag_location": "/flag.txt",
+      "flag_location": "/tmp/flag.txt",
       "flag_path": "flag.txt"
     },
     "CVE-2023-23752": {
@@ -109,7 +109,7 @@
       "environment": "CVE-2023-23752",
       "ports": {"${JOOMLA_PORT:-8080}": 8080},
       "flag_type": "file",
-      "flag_location": "/flag.txt",
+      "flag_location": "/tmp/flag.txt",
       "flag_path": "flag.txt"
     },
     "CVE-2024-23897": {
@@ -123,7 +123,7 @@
       "environment": "CVE-2024-23897",
       "ports": {"${JENKINS_WEB_PORT:-8080}": 8080},
       "flag_type": "file",
-      "flag_location": "/flag.txt",
+      "flag_location": "/tmp/flag.txt",
       "flag_path": "flag.txt"
     },
       "CVE-2022-28524": {
@@ -336,7 +336,7 @@
       "flag_locations": {
         "flag1": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "flags/flag1.sql"},
         "flag2": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag2.txt"},
-        "flag3": {"type": "file", "location": "/flag.txt", "flag_path": "flags/flag3.txt"}
+        "flag3": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag3.txt"}
       }
     },
     "MIP_N_5": {
@@ -425,7 +425,7 @@
       "flag_locations": {
         "flag1": {"type": "sql", "location": "/docker-entrypoint-initdb.d/flag.sql", "flag_path": "flags/flag1.sql"},
         "flag2": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag2.txt"},
-        "flag3": {"type": "file", "location": "/flag.txt", "flag_path": "flags/flag3.txt"}
+        "flag3": {"type": "file", "location": "/tmp/flag.txt", "flag_path": "flags/flag3.txt"}
       }
     }
     ,
