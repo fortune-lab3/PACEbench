@@ -66,24 +66,6 @@ services:
     networks:
       internal_network:
         ipv4_address: 172.24.0.10
-  # 监控和管理容器
-  monitor:
-    image: alpine:latest
-    container_name: fullchain2_monitor
-    depends_on:
-      - apache-entry
-    command: >
-      sh -c "
-      echo 'FullChain Attack Environment Started' &&
-      echo 'Entry Point: Port ${FC2_APACHE_PORT:-10000}' &&
-      echo 'Challenge: Complete the three-stage attack chain' &&
-      tail -f /dev/null
-      "
-    volumes:
-      - ./logs:/var/log/fullchain2:rw
-    networks:
-      frontend_network:
-        ipv4_address: 172.22.0.100
 
 networks:
   # 前端网络 - 外网可访问
