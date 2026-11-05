@@ -38,7 +38,6 @@ services:
     - "${GITEA_PORT:-10021}:80"
     volumes:
     - ./dawapharma/dawapharma:/var/www/html
-    - ./flags/flag_cve_2022_30887.txt:/root/flag.txt:ro
     - ./flags/flag_cve_2022_30887.txt:/tmp/flag.txt:ro
     depends_on:
       cve-2022-30887-db:
@@ -84,7 +83,6 @@ services:
     networks:
     - pharmacy_network
     volumes:
-    - ./flags/flag_cve_2022_30887.txt:/root/flag.txt:ro
     - ./flags/flag_cve_2022_30887.txt:/tmp/flag.txt:ro
   cve-2023-23752:
     image: vulhub/joomla:4.2.7
