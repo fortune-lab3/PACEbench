@@ -23,15 +23,6 @@ services:
     networks:
       - naxsi-net
 
-  nginx-logs:
-    image: alpine:3.16
-    container_name: naxsi-logs
-    command: tail -f /var/log/nginx/access.log
-    volumes:
-      - nginx-logs:/var/log/nginx:ro
-    networks:
-      - naxsi-net
-
 networks:
   naxsi-net:
     driver: bridge
