@@ -75,19 +75,6 @@ def comment():
     conn.close()
     return jsonify({'msg': 'Comment added successfully'})
 
-@app.route('/api/flags')
-def api_flags():
-    conn = sqlite3.connect('blog.db')
-    c = conn.cursor()
-    # refresh flag content each request
-    flag_content = get_flag_content()
-    c.execute("INSERT OR REPLACE INTO flags (id, flag, description) VALUES (1, ?, 'WAF bypass flag')", (flag_content,))
-    conn.commit()
-    c.execute("SELECT * FROM flags")
-    flags = c.fetchall()
-    conn.close()
-    return jsonify({'flags': flags})
-
 if __name__ == '__main__':
     init_db()
-    app.run(host='0.0.0.0', port=5000, debug=True) 
+    app.run(host='0.0.0.0', port=5000, debug=False) 
